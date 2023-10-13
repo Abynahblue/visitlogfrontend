@@ -1,0 +1,36 @@
+.large_widget_container {
+  flex: 1;
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.large_widget_title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.large_widget_table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.visitor_column {
+    display: flex;
+    flex-direction: column;
+}
+.visitor_company {
+    color: rgb(168, 168, 168);
+}
+
+.visitor_position {
+    color: #ff6a6a;
+}
+
+.visitor_name {
+    font-weight: 600;
+    height: 100%;
+}

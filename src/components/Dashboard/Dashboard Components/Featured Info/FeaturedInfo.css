@@ -1,0 +1,51 @@
+.featuredInfo_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.featuredInfo_item {
+    flex: 1;
+    margin: 8px 20px 0 20px;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.5);
+}
+
+.featuredInfo_title {
+    font-size: 20px;
+}
+
+.featuredInfo_money_container {
+    margin: 5px 0px;
+    display: flex;
+    align-items: center;
+}
+
+.featuredInfo_money {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.featuredInfo_money_rate {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.negative {
+    color: rgb(253, 130, 92);
+    font-size: 22px;
+}
+
+.positive {
+    color: green;
+}
+
+.featuredInfo_subtitle {
+    font-size: 14px;
+    color: gray;
+}
