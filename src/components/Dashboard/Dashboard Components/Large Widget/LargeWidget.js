@@ -29,8 +29,8 @@ const LargeWidget = () => {
           </tr>
         </thead>
         <tbody>
-          {visitors.map(visitor => (
-            <tr>
+          {visitors.map((visitor, index) => (
+            <tr key={index + "_visitor"}>
               <td>{visitor.sign_in}</td>
               <td className="visitor_column">
                 <div className="">{visitor.guest_id.fullName}</div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { BiHide, BiShow } from 'react-icons/bi';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 toast.configure()
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const toast = useToast()
+    const qrlogindata = useLocation().state
 
     const fetchEmployeesData = async () => {
       const { data } = await axios.get('http://localhost:5010/api/v1/guest/search');
@@ -27,20 +28,28 @@ const Login = () => {
     // Get check in time
     const timestamp = new Date(Date.now()).toISOString();
   
-    const url = '/visitorLogin';
-    const [data, setData] = useState({
+  const url = '/visitorLogin';
+
+  const [data, setData] = useState(() => { 
+    if (qrlogindata)
+    {
+    console.log("qrdC BVNM,M: ",qrlogindata);
+
+      return {email: qrlogindata?.email, password: qrlogindata?.password, position:''}
+    }
+    return {
       email: '',
       password: '',
       position: '',
-    });
-    console.log(data)
+    }
+  }
+  );
   
   
     const handleChange = e => {
       const newData = { ...data };
       newData[e.target.id] = e.target.value;
       setData(newData);
-      console.log(newData)
     };
 
     const visitorEmail = data.email
@@ -50,7 +59,6 @@ const Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       const newData = Object.assign(data, {timestamp: timestamp})
-      console.log(newData)
 
       if(!visitorEmail || !visitorPassword 
         || !visitorPosition) {
@@ -66,7 +74,6 @@ const Login = () => {
   
       try {
         const {data} = await axios.post('http://localhost:5010/api/v1/guest/login', newData)
-        console.log(data)
 
         if (data) {
           toast({

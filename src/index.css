@@ -65,3 +65,4 @@ div.carousel-indicators {
   padding: 10px;
   border: 2px solid black;
 }
+iframe#webpack-dev-server-client-overlay{display:none!important}

@@ -11,7 +11,18 @@ import EmployeeEditableRow from './EmployeeEditableRow';
 const AdminPage = () => {
   const [visitors, setVisitors] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [userToEdit, setUserToEdit] = useState(null)
 
+  const generateRandomPassword = () => {
+    let result = "";
+    const characters = "0123456789";
+    for (let i = 0; i < 7; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+        );
+    }
+    return result;
+  }
   // State of edit button
   const [editVisitorId, setEditVisitorId] = useState(null);
   const [editEmployeeId, setEditEmployeeId] = useState(null);
@@ -166,13 +177,17 @@ const AdminPage = () => {
     const newEmployee = {
       fullName: addEmployeeFormData.fullName,
       email: addEmployeeFormData.email,
-      password: addEmployeeFormData.password,
+      // password: generateRandomPassword(),
       phone: addEmployeeFormData.phone,
       position: addEmployeeFormData.position,
     };
 
+    // if (userToEdit)
+    // {
+    //   delete newEmployee["password"]
+    // }
+
     const newEmployees = [...employees, newEmployee];
-    console.log("n:" ,newEmployee);
     setEmployees(newEmployees);
     setAddFormEmployeeData({
       fullName: '',
@@ -182,7 +197,15 @@ const AdminPage = () => {
       position: '',
     });
 
-    axios.post('http://localhost:5010/api/v1/user', newEmployee);
+    if (userToEdit)
+    {
+      console.log("user useer: ", userToEdit)
+      axios.put(`http://localhost:5010/api/v1/users/${userToEdit._id}`, newEmployee);
+      setUserToEdit(null);
+    } else
+    {
+      axios.post('http://localhost:5010/api/v1/user', newEmployee);
+    }
   };
 
   const handleVisitorEditFormSubmit = e => {
@@ -253,8 +276,17 @@ const AdminPage = () => {
   };
 
   const handleEmployeeEditClick = (e, employee) => {
+    console.log("lslsl: ", employee)
     e.preventDefault();
-    setEditEmployeeId(employee.Id);
+    setEditEmployeeId(employee.Id); 
+    setUserToEdit(employee)
+    setAddFormEmployeeData({
+      password: employee.password,
+      email: employee.email,
+      phone: employee.phone,
+      position: employee.role,
+      fullName: employee.fullName
+    })
 
     const formValues = {
       Full_Name: employee.fullName,
@@ -426,7 +458,7 @@ const AdminPage = () => {
             </table>
           </form>
 
-          <h2 className="subtitle">Add an Employee</h2>
+          <h2 className="subtitle">{ userToEdit != null ? "Edit an Employee" : "Add an Employee" }</h2>
           <form className="add_form" onSubmit={handleAddEmployeeFormSubmit}>
             <input
               type="text"
@@ -434,7 +466,7 @@ const AdminPage = () => {
               required="required"
               placeholder="Name of host/employee"
               onChange={handleAddEmployeeFormChange}
-              value={addEmployeeFormData.Full_Name}
+              value={addEmployeeFormData.fullName}
             />
             <input
               type="email"
@@ -442,23 +474,25 @@ const AdminPage = () => {
               required="required"
               placeholder="Email"
               onChange={handleAddEmployeeFormChange}
-              value={addEmployeeFormData.Email}
+              value={addEmployeeFormData.email}
             />
-            <input
-              type="password"
-              name="password"
-              required="required"
-              placeholder="Password"
-              onChange={handleAddEmployeeFormChange}
-              value={addEmployeeFormData.Password}
-            />
+            {/* {
+              userToEdit != null && (<input
+                type="password"
+                name="password"
+                required="required"
+                placeholder="Password"
+                onChange={handleAddEmployeeFormChange}
+                value={addEmployeeFormData.password}
+              />)
+            } */}
             <input
               type="tel"
               name="phone"
               required="required"
               placeholder="Phone number"
               onChange={handleAddEmployeeFormChange}
-              value={addEmployeeFormData.Phone_Number}
+              value={addEmployeeFormData.phone}
             />
             <input
               type="text"
@@ -466,10 +500,10 @@ const AdminPage = () => {
               required="required"
               placeholder="Position"
               onChange={handleAddEmployeeFormChange}
-              value={addEmployeeFormData.Position}
+              value={addEmployeeFormData.position}
             />
             <button type="submit" className="add_btn">
-              Add
+              {userToEdit != null ? "Edit" : "Add"}
             </button>
           </form>
         </div>

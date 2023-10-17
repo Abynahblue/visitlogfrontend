@@ -19,6 +19,7 @@ const Chart = ({ title, data, dataKey, grid }) => {
   const fetchChart = async () => {
     const { data } = await axios.get('http://127.0.0.1:5010/api/v1/monthly-visits');
     setChart(data.data?? []);
+    console.log("dada",data)
   }
 
   useEffect(() => {

@@ -1,98 +1,63 @@
 import React, { useState } from 'react';
-import { Fab, TextareaAutosize, Grid } from '@material-ui/core';
+import { Fab, TextareaAutosize, Grid, Input } from '@material-ui/core';
 import Navbar from '../../Dashboard Components/Navbar/Navbar';
 import Sidebar from '../../Dashboard Components/Sidebar/Sidebar';
 import './QrCodeGenerator.css';
-import { GetApp } from '@material-ui/icons';
-import QRcode from 'qrcode.react';
 import { Button, Center } from '@chakra-ui/react';
+import axios from 'axios';
 
 const QrCodeGenerator = () => {
   const [qr, setQr] = useState('');
+  const [msg, setMsg]= useState('');
+  const [guestEmail, setguestEmail] = useState('');
   const handleChange = event => {
-    setQr(event.target.value);
+    setguestEmail(event.target.value);
   };
+  const handleSumbit = event => {
+    event.preventDefault()
+    axios.post('http://localhost:5010/api/v1/guest/generateQrCode', { email: guestEmail }).then(response => {
+      console.log("dataaaa:",response.data);
+      setQr(response.data.data.qrCode)
+      setMsg(response.data.data.message)
+    }) ;
+  }
+  console.log(qr);
 
-  console.log(qr)
-
-  const downloadQR = () => {
-    const canvas = document.getElementById('myqr');
-    const pngUrl = canvas
-      .toDataURL('image/png')
-      .replace('image/png', 'image/octet-stream');
-    let downloadLink = document.createElement('a');
-    downloadLink.href = pngUrl;
-    downloadLink.download = 'myqr.png';
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
-
+ 
   return (
     <div className="qrcode_container">
       <Navbar />
       <div className="qrcode_wrapper">
         <Sidebar />
         <div className="qrcode_content">
-          <Center display="flex" flexDirection="column">
-            <span style={{ fontWeight: 'bold', fontSize: '20px' }}>
+          <form onSubmit={handleSumbit}>
+          <p style={{textAlign: 'center', fontWeight: 'bold', fontSize: '20px' }}>
               QR Code Generator
-            </span>
+            </p>
+          <Center display="flex" flexDirection="row">
+            
 
             <div style={{ marginTop: 30 }}>
-              <TextareaAutosize
+              <Input
               className='textarea_container'
                 aria-label="empty textarea"
-                placeholder="Empty"
+                placeholder="guest email"
+                type="email"
                 style={{ width: 380 }}
-                value={qr}
+                value={guestEmail}
                 onChange={handleChange}
               />
+            <Button style={{ height: 52, marginLeft: 5 }} type='submit'  className='textarea_container'> Send </Button>
             </div>
+            
+          </Center>
 
+          </form>
+          <Center display="flex" flexDirection="column">
             <div>
-              {qr ? (
-                <QRcode id="myqr" value={qr} size={320} includeMargin={true} />
-              ) : (
-                <p style={{ marginTop: '20px' }}>No QR code preview</p>
-              )}
+              <img alt='qr code' src={qr} />
             </div>
-
-            <div>
-              {qr ? (
-                <Grid container>
-                  <Grid item xs={10}>
-                    <TextareaAutosize
-                      style={{
-                        fontSize: 18,
-                        width: 280,
-                        height: 100,
-                        border: '1px solid black',
-                        padding: '5px',
-                      }}
-                      rowsMax={4}
-                      defaultValue={qr}
-                      value={qr}
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Fab onClick={downloadQR} color="primary">
-                      <GetApp />
-                    </Fab>
-                  </Grid>
-                  <Button
-                    variant="contained"
-                    backgroundColor="#3bb077"
-                    color="white"
-                  >
-                    {' '}
-                    <a href="mailto:someone@example.com"> Email </a>
-                  </Button>
-                </Grid>
-              ) : (
-                ''
-              )}
-            </div>
+            <p>{msg}</p>
           </Center>
         </div>
       </div>

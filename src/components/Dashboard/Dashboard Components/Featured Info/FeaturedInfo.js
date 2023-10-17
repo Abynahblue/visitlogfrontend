@@ -18,8 +18,8 @@ const FeaturedInfo = () => {
 
   return (
     <div className="featuredInfo_container">
-    {charts && charts.map((chart) => (
-        <div className="featuredInfo_item">
+    {charts && charts.map((chart, index) => (
+        <div className="featuredInfo_item" key  = {index + "_featuredInfo"}>
           <span className="featuredInfo_title">Number of Visits</span>
           <div className="featuredInfo_money_container">
             <span className="featuredInfo_money"> { chart.Months } - </span>
