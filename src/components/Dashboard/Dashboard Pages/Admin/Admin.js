@@ -54,7 +54,7 @@ const Admin = () => {
 
     try {
       const { data } = await axios.post(
-        'http://localhost:5010/api/v1/user/adminLogin',
+        'https://visitor-backend.onrender.com/api/v1/user/adminLogin',
         { userEmail, password },
         {
           headers: {

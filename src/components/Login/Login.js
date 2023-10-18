@@ -15,7 +15,7 @@ const Login = () => {
     const qrlogindata = useLocation().state
 
     const fetchEmployeesData = async () => {
-      const { data } = await axios.get('http://localhost:5010/api/v1/guest/search');
+      const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/guest/search');
       setEmployee(data?.data ?? []);
     };
   
@@ -73,7 +73,7 @@ const Login = () => {
       }
   
       try {
-        const {data} = await axios.post('http://localhost:5010/api/v1/guest/login', newData)
+        const {data} = await axios.post('https://visitor-backend.onrender.com/api/v1/guest/login', newData)
         if (data) {
           toast({
             title: 'Login successful',

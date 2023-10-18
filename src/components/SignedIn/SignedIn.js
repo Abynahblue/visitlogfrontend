@@ -34,7 +34,7 @@ const SignedIn = () => {
     e.preventDefault();
     const newData = { timestamp: timestamp };
 
-    axios.put('http://localhost:5010/api/v1/guest/logout', newData)
+    axios.put('https://visitor-backend.onrender.com/api/v1/guest/logout', newData)
 
     localStorage.clear()
 

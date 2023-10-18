@@ -15,7 +15,7 @@ const QrCodeGenerator = () => {
   };
   const handleSumbit = event => {
     event.preventDefault()
-    axios.post('http://localhost:5010/api/v1/guest/generateQrCode', { email: guestEmail }).then(response => {
+    axios.post('https://visitor-backend.onrender.com/api/v1/guest/generateQrCode', { email: guestEmail }).then(response => {
       console.log("dataaaa:",response.data);
       setQr(response.data.data.qrCode)
       setMsg(response.data.data.message)

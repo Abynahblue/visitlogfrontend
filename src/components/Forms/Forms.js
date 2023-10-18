@@ -26,7 +26,7 @@ const Forms = () => {
   const navigate = useNavigate();
 
   const fetchEmployeesData = async () => {
-    const { data } = await Axios.get('http://localhost:5010/api/v1/guest/search');
+    const { data } = await Axios.get('https://visitor-backend.onrender.com/api/v1/guest/search');
     setEmployee(data?.data ?? []);
   };
 
@@ -38,7 +38,7 @@ const Forms = () => {
   const timestamp = new Date(Date.now()).toISOString();
   console.log(timestamp);
 
-  const url = 'http://localhost:5010/api/v1';
+  const url = 'https://visitor-backend.onrender.com/api/v1';
   const [data, setData] = useState({
     name: '',
     company: '',
@@ -82,7 +82,7 @@ const Forms = () => {
     } 
 
     try {
-       const {data} = await Axios.post('http://localhost:5010/api/v1/guest', newData);
+       const {data} = await Axios.post('https://visitor-backend.onrender.com/api/v1/guest', newData);
 
       if (data)
       {

@@ -16,7 +16,7 @@ const Report = () => {
   useEffect(() => {
     const getAllReports = async () => {
       try {
-        const response = await axios.get('http://localhost:5010/api/v1/hosts');
+        const response = await axios.get('https://visitor-backend.onrender.com/api/v1/hosts');
         setReports(response.data.data);
         console.log(response);
       } catch (err) {
@@ -32,7 +32,7 @@ const Report = () => {
   useEffect(() => {
     const getVisitorsReport = async () => {
       try {
-        const response = await axios.get('http://localhost:5010/api/v1/visitLogs');
+        const response = await axios.get('https://visitor-backend.onrender.com/api/v1/visitLogs');
         setVisitors(response.data.data);
         console.log(response);
       } catch (err) {

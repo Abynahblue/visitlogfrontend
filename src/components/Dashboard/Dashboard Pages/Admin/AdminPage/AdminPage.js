@@ -70,7 +70,7 @@ const AdminPage = () => {
 
   //fetching data from endpoint
   const fetchVisitorsData = async () => {
-    const { data } = await axios.get('http://localhost:5010/api/v1/visitLogs');
+    const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/visitLogs');
     setVisitors(data?.data ?? []);
     console.log(data);
   };
@@ -80,7 +80,7 @@ const AdminPage = () => {
   }, []);
 
   const fetchEmployeesData = async () => {
-    const { data } = await axios.get('http://localhost:5010/api/v1/hosts');
+    const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/hosts');
     setEmployees(data?.data ?? []);
     console.log(data);
   };
@@ -168,7 +168,7 @@ const AdminPage = () => {
       Full_Name: '',
     });
 
-    axios.post('http://localhost:5010/api/v1/guest', newVisitor);
+    axios.post('https://visitor-backend.onrender.com/api/v1/guest', newVisitor);
   };
 
   const handleAddEmployeeFormSubmit = e => {
@@ -200,11 +200,11 @@ const AdminPage = () => {
     if (userToEdit)
     {
       console.log("user useer: ", userToEdit)
-      axios.put(`http://localhost:5010/api/v1/users/${userToEdit._id}`, newEmployee);
+      axios.put(`https://visitor-backend.onrender.com/api/v1/users/${userToEdit._id}`, newEmployee);
       setUserToEdit(null);
     } else
     {
-      axios.post('http://localhost:5010/api/v1/user', newEmployee);
+      axios.post('https://visitor-backend.onrender.com/api/v1/user', newEmployee);
     }
   };
 
@@ -252,7 +252,7 @@ const AdminPage = () => {
     setEmployees(newEmployees);
     setEditEmployeeId(null);
 
-    axios.put(`http://localhost:5010/api/v1/user/${editEmployeeId}`, editedEmployee);
+    axios.put(`https://visitor-backend.onrender.com/api/v1/user/${editEmployeeId}`, editedEmployee);
   };
 
   //edit click
