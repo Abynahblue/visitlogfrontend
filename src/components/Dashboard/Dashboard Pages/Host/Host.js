@@ -14,10 +14,9 @@ const Host = () => {
   }, []);
 
   const fetchVisitors = async () => {
-    const { data } = await axios.get('http://localhost:5010/api/v1/visitLogs');
-    console.log(data);
+    const accessToken = localStorage.getItem("access_token")
+    const { data } = await axios.get('http://localhost:5010/api/v1/visitLogs', {headers: {"Authorization": `Bearer ${accessToken}`}});
     setVisitors(data?.data ?? []);
-    console.log(data, "this is data")
   };
 
 

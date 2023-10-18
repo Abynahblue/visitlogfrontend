@@ -54,7 +54,7 @@ const Dashboard = () => {
     } 
 
     try {
-      const { data } = await axios.post(
+      const data = await axios.post(
         'http://localhost:5010/api/v1/user/login',
         { userEmail, password },
         {
@@ -63,9 +63,11 @@ const Dashboard = () => {
           },
         }
       );
-      console.log(data);
 
-      if (data.message === 'Logged in') {
+      if (data.status === 200)
+      {
+        console.log(data.data);
+        localStorage.setItem("access_token", data.data.data.token)
         toast({
           title: 'Login successful',
           status: 'success',

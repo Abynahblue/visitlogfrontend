@@ -7,9 +7,10 @@ const LargeWidget = () => {
   const [visitors, setVisitors] = useState([]);
 
   const fetchVisitors = async () => {
-    const { data } = await axios.get('http://localhost:5010/api/v1/visitLogs');
+    const accessToken = localStorage.getItem("access_token")
+    const { data } = await axios.get('http://localhost:5010/api/v1/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
+    console.log("datata: ", data)
     setVisitors(data.data);
-    console.log(data);
   };
 
   useEffect(() => {

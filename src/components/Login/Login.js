@@ -74,7 +74,6 @@ const Login = () => {
   
       try {
         const {data} = await axios.post('http://localhost:5010/api/v1/guest/login', newData)
-
         if (data) {
           toast({
             title: 'Login successful',
