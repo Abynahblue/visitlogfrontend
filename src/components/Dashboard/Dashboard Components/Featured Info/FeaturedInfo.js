@@ -1,13 +1,13 @@
 import './FeaturedInfo.css';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { API } from '../../../../api/axiosClient';
 
 // Small Widgets to display statistics of visitors
 const FeaturedInfo = () => {
   const [charts, setCharts] = useState();
 
   const fetchChart = async () => {
-    const { data } = await axios.get('http://127.0.0.1:5010/api/v1/monthly-visits');
+    const { data } = await API.get('/monthly-visits');
     setCharts(data.data);
     console.log(data);
   };

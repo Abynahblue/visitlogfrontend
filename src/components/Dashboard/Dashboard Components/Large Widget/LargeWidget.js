@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './LargeWidget.css';
-import axios from 'axios';
+import { API } from '../../../../api/axiosClient';
 
 // Table for Signed In Visitors
 const LargeWidget = () => {
@@ -8,15 +8,16 @@ const LargeWidget = () => {
 
   const fetchVisitors = async () => {
     const accessToken = localStorage.getItem("access_token")
-    const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
+    const { data } = await API.get('/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
     console.log("datata: ", data)
     setVisitors(data.data);
   };
 
+  
   useEffect(() => {
     fetchVisitors();
   }, []);
-
+  
   return (
     <div className="large_widget_container">
       <span className="large_widget_title">Visitors</span>
@@ -34,8 +35,8 @@ const LargeWidget = () => {
             <tr key={index + "_visitor"}>
               <td>{visitor.sign_in}</td>
               <td className="visitor_column">
-                <div className="">{visitor.guest_id.fullName}</div>
-                <div className="visitor_company">{visitor.guest_id.company}</div>
+                <div className="">{visitor.guest_id?.fullName}</div>
+                <div className="visitor_company">{visitor.guest_id?.company}</div>
               </td>
               <td>{visitor.user_id.fullName}</td>
               <td>{visitor.sign_out?.date ?? "Not signed out"}</td>

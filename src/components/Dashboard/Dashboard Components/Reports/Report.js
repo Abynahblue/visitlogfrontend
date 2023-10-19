@@ -3,7 +3,7 @@ import GeneratePDF from './GenerateReport';
 import GenerateVisitorPDF from './GenerateVisitorReport';
 import GenerateGraphPDF from './GraphReport'
 import Navbar from '../Navbar/Navbar';
-import axios from 'axios';
+import { API } from '../../../../api/axiosClient';
 import ReportsComponent from './ReportsComponent';
 import VisitorsComponent from './VisitorsComponent';
 import GraphComponent from './GraphComponent';
@@ -16,7 +16,7 @@ const Report = () => {
   useEffect(() => {
     const getAllReports = async () => {
       try {
-        const response = await axios.get('https://visitor-backend.onrender.com/api/v1/hosts');
+        const response = await API.get('/hosts');
         setReports(response.data.data);
         console.log(response);
       } catch (err) {
@@ -32,7 +32,7 @@ const Report = () => {
   useEffect(() => {
     const getVisitorsReport = async () => {
       try {
-        const response = await axios.get('https://visitor-backend.onrender.com/api/v1/visitLogs');
+        const response = await API.get('/visitLogs');
         setVisitors(response.data.data);
         console.log(response);
       } catch (err) {
@@ -45,7 +45,7 @@ const Report = () => {
   useEffect(() => {
     const getChartReport = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5010/api/v1/monthly-visits');
+        const response = await API.get('/monthly-visits');
         setCharts(response.data.data);
         console.log(response.data);
       } catch (err) {

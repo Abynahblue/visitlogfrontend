@@ -10,7 +10,7 @@ import {
   InputRightElement,
   useToast
 } from '@chakra-ui/react';
-import Axios from 'axios';
+import { API } from '../../api/axiosClient';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ const Forms = () => {
   const navigate = useNavigate();
 
   const fetchEmployeesData = async () => {
-    const { data } = await Axios.get('https://visitor-backend.onrender.com/api/v1/guest/search');
+    const { data } = await API.get('/guest/search');
     setEmployee(data?.data ?? []);
   };
 
@@ -38,7 +38,6 @@ const Forms = () => {
   const timestamp = new Date(Date.now()).toISOString();
   console.log(timestamp);
 
-  const url = 'https://visitor-backend.onrender.com/api/v1';
   const [data, setData] = useState({
     name: '',
     company: '',
@@ -82,7 +81,7 @@ const Forms = () => {
     } 
 
     try {
-       const {data} = await Axios.post('https://visitor-backend.onrender.com/api/v1/guest', newData);
+       const {data} = await API.post('/guest', newData);
 
       if (data)
       {
@@ -107,9 +106,6 @@ const Forms = () => {
       });
     }
 
-    
-
-    
   };
 
   return (

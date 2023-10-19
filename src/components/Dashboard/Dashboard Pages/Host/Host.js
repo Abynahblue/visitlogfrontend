@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import './Host.css';
 import Navbar from '../../Dashboard Components/Navbar/Navbar';
 import Sidebar from '../../Dashboard Components/Sidebar/Sidebar';
-import axios from 'axios';
-
+import { API } from '../../../../api/axiosClient';
 // Host Module 
 const Host = () => {
 
@@ -15,7 +14,7 @@ const Host = () => {
 
   const fetchVisitors = async () => {
     const accessToken = localStorage.getItem("access_token")
-    const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/visitLogs', {headers: {"Authorization": `Bearer ${accessToken}`}});
+    const { data } = await API.get('/visitLogs', {headers: {"Authorization": `Bearer ${accessToken}`}});
     setVisitors(data?.data ?? []);
   };
 
