@@ -38,7 +38,7 @@ const LargeWidget = () => {
                 <div className="">{visitor.guest_id?.fullName}</div>
                 <div className="visitor_company">{visitor.guest_id?.company}</div>
               </td>
-              <td>{visitor.user_id.fullName}</td>
+              <td>{visitor.user_id?.fullName}</td>
               <td>{visitor.sign_out?.date ?? "Not signed out"}</td>
             </tr>
           ))}
