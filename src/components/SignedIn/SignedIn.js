@@ -1,6 +1,6 @@
 import { Text, Box } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../../api/axiosClient';
 import { useToast } from '@chakra-ui/react';
 
 // Signed In
@@ -34,7 +34,7 @@ const SignedIn = () => {
     e.preventDefault();
     const newData = { timestamp: timestamp };
 
-    axios.put('https://visitor-backend.onrender.com/api/v1/guest/logout', newData)
+    API.put('/guest/logout', newData)
 
     localStorage.clear()
 

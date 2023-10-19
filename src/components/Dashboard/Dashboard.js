@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../../api/axiosClient';
 
 // Dashboard Login
 const Dashboard = () => {
@@ -54,8 +54,8 @@ const Dashboard = () => {
     } 
 
     try {
-      const data = await axios.post(
-        'https://visitor-backend.onrender.com/api/v1/user/login',
+      const data = await API.post(
+        '/user/login',
         { userEmail, password },
         {
           headers: {

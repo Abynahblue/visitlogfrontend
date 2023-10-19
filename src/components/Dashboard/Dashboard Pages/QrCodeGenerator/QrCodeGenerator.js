@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Fab, TextareaAutosize, Grid, Input } from '@material-ui/core';
+import {  Input } from '@material-ui/core';
 import Navbar from '../../Dashboard Components/Navbar/Navbar';
 import Sidebar from '../../Dashboard Components/Sidebar/Sidebar';
 import './QrCodeGenerator.css';
 import { Button, Center } from '@chakra-ui/react';
-import axios from 'axios';
+import { API } from '../../../../api/axiosClient';
 
 const QrCodeGenerator = () => {
   const [qr, setQr] = useState('');
@@ -15,8 +15,7 @@ const QrCodeGenerator = () => {
   };
   const handleSumbit = event => {
     event.preventDefault()
-    axios.post('https://visitor-backend.onrender.com/api/v1/guest/generateQrCode', { email: guestEmail }).then(response => {
-      console.log("dataaaa:",response.data);
+    API.post('/guest/generateQrCode', { email: guestEmail }).then(response => {
       setQr(response.data.data.qrCode)
       setMsg(response.data.data.message)
     }) ;

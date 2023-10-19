@@ -1,5 +1,4 @@
 import { TextareaAutosize } from '@material-ui/core';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import QrScan from 'react-qr-reader';
 import { useNavigate } from 'react-router-dom';

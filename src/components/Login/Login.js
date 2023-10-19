@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, Input, InputGroup, InputRightElement, Select, Text, useToast } from '@chakra-ui/react';
-import axios from 'axios';
+import { API } from '../../api/axiosClient';
 import React, { useState, useEffect } from 'react'
 import { BiHide, BiShow } from 'react-icons/bi';
 import { toast } from 'react-toastify'
@@ -15,7 +15,7 @@ const Login = () => {
     const qrlogindata = useLocation().state
 
     const fetchEmployeesData = async () => {
-      const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/guest/search');
+      const { data } = await API.get('/guest/search');
       setEmployee(data?.data ?? []);
     };
   
@@ -73,7 +73,7 @@ const Login = () => {
       }
   
       try {
-        const {data} = await axios.post('https://visitor-backend.onrender.com/api/v1/guest/login', newData)
+        const {data} = await API.post('/guest/login', newData)
         if (data) {
           toast({
             title: 'Login successful',

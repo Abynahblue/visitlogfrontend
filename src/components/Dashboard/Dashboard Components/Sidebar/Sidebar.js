@@ -1,7 +1,7 @@
 import React from 'react'
 import './Sidebar.css'
 import { Home,BarChart, AccountCircle, Save, VerifiedUser, ArrowBack, CropFree } from '@material-ui/icons';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Sidebar of Dashboard
 const Sidebar = () => {
@@ -66,7 +66,7 @@ const Sidebar = () => {
             </div>
 
             <div className="sidebar_menu">
-                <h3 className="sidebar_title">Go back</h3>
+                <Link className="sidebar_title" to={'/'}>Go back</Link>
                 <ul className="sidebar_list">
                     <li className="sidebar_list_item" onClick={() => {
                         navigate('/')

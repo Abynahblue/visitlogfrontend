@@ -2,8 +2,8 @@ import { useState, useEffect, Fragment } from 'react';
 import './AdminPage.css';
 import Navbar from '../../../Dashboard Components/Navbar/Navbar';
 import Sidebar from '../../../Dashboard Components/Sidebar/Sidebar';
-import axios from 'axios';
 import VisitorReadOnlyRow from './VisitorReadOnlyRow';
+import { API } from '../../../../../api/axiosClient';
 import EmployeeReadOnlyRow from './EmployeeReadOnlyRow';
 import VisitorEditableRow from './VisitorEditableRow';
 import EmployeeEditableRow from './EmployeeEditableRow';
@@ -13,16 +13,7 @@ const AdminPage = () => {
   const [employees, setEmployees] = useState([]);
   const [userToEdit, setUserToEdit] = useState(null)
 
-  const generateRandomPassword = () => {
-    let result = "";
-    const characters = "0123456789";
-    for (let i = 0; i < 7; i++) {
-        result += characters.charAt(
-            Math.floor(Math.random() * characters.length)
-        );
-    }
-    return result;
-  }
+  
   // State of edit button
   const [editVisitorId, setEditVisitorId] = useState(null);
   const [editEmployeeId, setEditEmployeeId] = useState(null);
@@ -70,9 +61,9 @@ const AdminPage = () => {
 
   //fetching data from endpoint
   const fetchVisitorsData = async () => {
-    const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/visitLogs');
-    setVisitors(data?.data ?? []);
-    console.log(data);
+    const { data } = await API.get('/visitLogs');
+    console.log("my data",data);
+    // setVisitors(data?.data ?? []);
   };
 
   useEffect(() => {
@@ -80,7 +71,7 @@ const AdminPage = () => {
   }, []);
 
   const fetchEmployeesData = async () => {
-    const { data } = await axios.get('https://visitor-backend.onrender.com/api/v1/hosts');
+    const { data } = await API.get('/hosts');
     setEmployees(data?.data ?? []);
     console.log(data);
   };
@@ -168,7 +159,7 @@ const AdminPage = () => {
       Full_Name: '',
     });
 
-    axios.post('https://visitor-backend.onrender.com/api/v1/guest', newVisitor);
+    API.post('/guest', newVisitor);
   };
 
   const handleAddEmployeeFormSubmit = e => {
@@ -200,11 +191,11 @@ const AdminPage = () => {
     if (userToEdit)
     {
       console.log("user useer: ", userToEdit)
-      axios.put(`https://visitor-backend.onrender.com/api/v1/users/${userToEdit._id}`, newEmployee);
+      API.put(`/users/${userToEdit._id}`, newEmployee);
       setUserToEdit(null);
     } else
     {
-      axios.post('https://visitor-backend.onrender.com/api/v1/user', newEmployee);
+      API.post('/user', newEmployee);
     }
   };
 
@@ -226,7 +217,7 @@ const AdminPage = () => {
     setVisitors(newVisitors);
     setEditVisitorId(null);
 
-    axios.put(`/updateVisit/${editVisitorId}`, editedVisitor);
+    API.put(`/updateVisit/${editVisitorId}`, editedVisitor);
   };
 
   const handleEmployeeEditFormSubmit = e => {
@@ -252,7 +243,7 @@ const AdminPage = () => {
     setEmployees(newEmployees);
     setEditEmployeeId(null);
 
-    axios.put(`https://visitor-backend.onrender.com/api/v1/user/${editEmployeeId}`, editedEmployee);
+    API.put(`/user/${editEmployeeId}`, editedEmployee);
   };
 
   //edit click
@@ -319,7 +310,7 @@ const AdminPage = () => {
 
     setVisitors(newVisitors);
 
-    axios.delete(`/deleteVisit/${visitorId}`);
+    API.delete(`/deleteVisit/${visitorId}`);
   };
 
   const handleEmployeeDeleteClick = employeeId => {
@@ -333,7 +324,7 @@ const AdminPage = () => {
 
     setEmployees(newEmployees);
 
-    axios.delete(`/adminPage/deleteEmployee/${employeeId}`);
+    API.delete(`/adminPage/deleteEmployee/${employeeId}`);
   };
   const visit = () => {
     console.log(visitors);

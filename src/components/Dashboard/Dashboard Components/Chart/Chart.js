@@ -9,7 +9,7 @@ import {
   Tooltip, 
   ResponsiveContainer,
 } from 'recharts';
-import axios from 'axios';
+import { API } from '../../../../api/axiosClient';
 
 // Graph of Monthly Visitors
 const Chart = ({ title, data, dataKey, grid }) => {
@@ -17,7 +17,7 @@ const Chart = ({ title, data, dataKey, grid }) => {
   const [chart, setChart] = useState([])
 
   const fetchChart = async () => {
-    const { data } = await axios.get('http://127.0.0.1:5010/api/v1/monthly-visits');
+    const { data } = await API.get('/monthly-visits');
     setChart(data.data?? []);
     console.log("dada",data)
   }

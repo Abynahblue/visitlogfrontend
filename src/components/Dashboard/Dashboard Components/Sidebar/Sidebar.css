@@ -22,6 +22,10 @@
   font-size: 30px;
 }
 
+.sidebar_title:hover{
+  color: rgb(0, 0, 68);
+}
+
 .sidebar_list {
   list-style: none;
   padding: 10px;

@@ -12,7 +12,7 @@ import {
 import { BiHide, BiShow } from 'react-icons/bi';
 
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../../../../api/axiosClient';
 
 // Admin login
 const Admin = () => {
@@ -53,15 +53,7 @@ const Admin = () => {
     }
 
     try {
-      const { data } = await axios.post(
-        'https://visitor-backend.onrender.com/api/v1/user/adminLogin',
-        { userEmail, password },
-        {
-          headers: {
-            'Content-type': 'application/json',
-          },
-        }
-      );
+      const { data } = await API.post('/user/adminLogin',{ userEmail, password });
       console.log(data);
 
       if (data.message === 'Logged in') {
