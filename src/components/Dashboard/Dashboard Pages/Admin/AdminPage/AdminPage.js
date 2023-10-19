@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import './AdminPage.css';
+import axios from "axios"
 import Navbar from '../../../Dashboard Components/Navbar/Navbar';
 import Sidebar from '../../../Dashboard Components/Sidebar/Sidebar';
 import VisitorReadOnlyRow from './VisitorReadOnlyRow';
@@ -62,8 +63,8 @@ const AdminPage = () => {
   //fetching data from endpoint
   const fetchVisitorsData = async () => {
     const { data } = await API.get('/visitLogs');
-    console.log("my data",data);
-    // setVisitors(data?.data ?? []);
+    setVisitors(data?.data ?? []);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -159,7 +160,7 @@ const AdminPage = () => {
       Full_Name: '',
     });
 
-    API.post('/guest', newVisitor);
+    API.post('http://localhost:5010/api/v1/guest', newVisitor);
   };
 
   const handleAddEmployeeFormSubmit = e => {
@@ -191,11 +192,11 @@ const AdminPage = () => {
     if (userToEdit)
     {
       console.log("user useer: ", userToEdit)
-      API.put(`/users/${userToEdit._id}`, newEmployee);
+      axios.put(`http://localhost:5010/api/v1/users/${userToEdit._id}`, newEmployee);
       setUserToEdit(null);
     } else
     {
-      API.post('/user', newEmployee);
+      axios.post('http://localhost:5010/api/v1/user', newEmployee);
     }
   };
 
@@ -217,7 +218,7 @@ const AdminPage = () => {
     setVisitors(newVisitors);
     setEditVisitorId(null);
 
-    API.put(`/updateVisit/${editVisitorId}`, editedVisitor);
+    axios.put(`/updateVisit/${editVisitorId}`, editedVisitor);
   };
 
   const handleEmployeeEditFormSubmit = e => {
@@ -243,7 +244,7 @@ const AdminPage = () => {
     setEmployees(newEmployees);
     setEditEmployeeId(null);
 
-    API.put(`/user/${editEmployeeId}`, editedEmployee);
+    axios.put(`http://localhost:5010/api/v1/user/${editEmployeeId}`, editedEmployee);
   };
 
   //edit click
@@ -310,7 +311,7 @@ const AdminPage = () => {
 
     setVisitors(newVisitors);
 
-    API.delete(`/deleteVisit/${visitorId}`);
+    axios.delete(`/deleteVisit/${visitorId}`);
   };
 
   const handleEmployeeDeleteClick = employeeId => {
@@ -324,7 +325,7 @@ const AdminPage = () => {
 
     setEmployees(newEmployees);
 
-    API.delete(`/adminPage/deleteEmployee/${employeeId}`);
+    axios.delete(`/adminPage/deleteEmployee/${employeeId}`);
   };
   const visit = () => {
     console.log(visitors);
