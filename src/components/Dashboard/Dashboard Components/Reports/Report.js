@@ -31,8 +31,10 @@ const Report = () => {
   //new
   useEffect(() => {
     const getVisitorsReport = async () => {
-      try {
-        const response = await API.get('/visitLogs');
+      try
+      {
+        const accessToken = localStorage.getItem("access_token")
+        const response = await API.get('/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
         setVisitors(response.data.data);
         console.log(response);
       } catch (err) {
