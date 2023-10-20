@@ -44,8 +44,10 @@ const Host = () => {
                       <div className="visitor_name">{visitlog.guest_id?.fullName}</div>
                     </td>
                     <td>{visitlog.user_id?.fullName}</td>
-                    <td>{visitlog.sign_in}</td>
-                    <td>{visitlog.sign_out?.date ?? "Not signed out"}</td>
+                    <td>{new Date(visitlog.sign_in).toLocaleString()}</td>
+                    <td>{(visitlog.sign_out && visitlog.sign_out.date !== null )
+                    ? new Date(visitlog.sign_out.date).toLocaleString()
+                    : "Not signed out"}</td>
                   </tr>
                 ))}
               </tbody>
