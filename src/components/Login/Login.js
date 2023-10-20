@@ -73,8 +73,11 @@ const Login = () => {
       }
   
       try {
-        const {data} = await API.post('/guest/login', newData)
-        if (data) {
+        const { data } = await API.post('/guest/login', newData)
+        console.log(data)
+        if (data)
+        {
+          localStorage.setItem('visitLogId', data.data.visitLog._id)
           toast({
             title: 'Login successful',
             status: 'success',

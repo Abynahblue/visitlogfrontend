@@ -28,14 +28,10 @@ const SignedIn = () => {
 
   setTimeout(handleConfirmedMessage, 10000)
 
-  const timestamp = new Date(Date.now()).toISOString();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newData = { timestamp: timestamp };
 
-    API.put('/guest/logout', newData)
-
+    await API.put('/guest/logout', { visitLogId: localStorage.getItem('visitLogId') })
     localStorage.clear()
 
     toast({

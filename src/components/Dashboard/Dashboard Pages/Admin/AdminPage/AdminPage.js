@@ -62,9 +62,10 @@ const AdminPage = () => {
 
   //fetching data from endpoint
   const fetchVisitorsData = async () => {
-    const { data } = await API.get('/visitLogs');
+    const accessToken = localStorage.getItem("access_token")
+    const { data } = await API.get('/visitLogs', {headers: {"Authorization": `Bearer ${accessToken}`}});;
     setVisitors(data?.data ?? []);
-    console.log(data);
+    console.log("all us", visit);
   };
 
   useEffect(() => {
