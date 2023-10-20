@@ -5,8 +5,12 @@ const VisitorReadOnlyRow = ({ visitor, handleVisitorEditClick, handleVisitorDele
   return (
     <tr>
       <td>{visitor.guest_id?.fullName}</td>
-      <td>{visitor.sign_in}</td>
-      <td>{visitor.sign_out?.date ?? "Not signed out"}</td>
+      <td>{new Date(visitor.sign_in).toLocaleString()}</td>
+      <td>
+    {(visitor.sign_out && visitor.sign_out.date !== null )
+    ? new Date(visitor.sign_out.date).toLocaleString()
+    : "Not signed out"}
+</td>
       <td>{visitor.user_id?.fullName}</td>
       <td>
           <button className='edit_btn' type='button' onClick={(e) => handleVisitorEditClick(e, visitor)}>Edit</button>
