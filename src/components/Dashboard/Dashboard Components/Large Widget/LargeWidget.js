@@ -33,13 +33,15 @@ const LargeWidget = () => {
         <tbody>
           {visitors.map((visitor, index) => (
             <tr key={index + "_visitor"}>
-              <td>{visitor.sign_in}</td>
+              <td>{new Date(visitor.sign_in).toLocaleString()}</td>
               <td className="visitor_column">
                 <div className="">{visitor.guest_id?.fullName}</div>
                 <div className="visitor_company">{visitor.guest_id?.company}</div>
               </td>
               <td>{visitor.user_id?.fullName}</td>
-              <td>{visitor.sign_out?.date ?? "Not signed out"}</td>
+              <td>{(visitor.sign_out && visitor.sign_out.date !== null )
+              ? new Date(visitor.sign_out.date).toLocaleString()
+              : "Not signed out"}</td>
             </tr>
           ))}
         </tbody>
