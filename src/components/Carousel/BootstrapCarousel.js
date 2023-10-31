@@ -18,6 +18,12 @@ const BootstrapCarousel = () => {
         </Carousel.Item>
 
         <Carousel.Item>
+          <div style={{height: '100vh', backgroundColor: "rgba(255, 255, 255, 0.8)"}}>
+            <homePage />
+          </div>
+        </Carousel.Item>
+
+        <Carousel.Item>
           <div style={{height: '10', backgroundColor: "rgba(255, 255, 255, 0.8)"}}>
             <Forms />
           </div>

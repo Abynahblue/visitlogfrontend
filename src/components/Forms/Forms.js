@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   FormControl,
   Input,
-  Select,
   Button,
   Text,
   Box,
@@ -16,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Visitor submission form
 const Forms = () => {
-  const [employee, setEmployee] = useState([]);
+  // const [employee, setEmployee] = useState([]);
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -25,14 +24,14 @@ const Forms = () => {
 
   const navigate = useNavigate();
 
-  const fetchEmployeesData = async () => {
-    const { data } = await API.get('/guest/search');
-    setEmployee(data?.data ?? []);
-  };
+  // const fetchEmployeesData = async () => {
+  //   const { data } = await API.get('/guest/search');
+  //   setEmployee(data?.data ?? []);
+  // };
 
-  useEffect(() => {
-    fetchEmployeesData();
-  }, []);
+  // useEffect(() => {
+  //   fetchEmployeesData();
+  // }, []);
 
   // Get check in time
   const timestamp = new Date(Date.now()).toISOString();
@@ -44,8 +43,7 @@ const Forms = () => {
     tel: '',
     email: '',
     password: '',
-    position: '',
-    host:''
+    hostEmail:''
   });
 
   const handleChange = e => {
@@ -59,14 +57,13 @@ const Forms = () => {
   const visitorPhone = data.tel
   const visitorEmail = data.email
   const visitorPassword = data.password
-  const visitorPosition = data.position
-  const visitorHost = data.host
+  const visitorHost = data.hostEmail
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newData = Object.assign(data, { timestamp: timestamp });
 
-    if (!visitorName || !visitorCompany || !visitorPhone || !visitorEmail || !visitorPassword || !visitorPosition
+    if (!visitorName || !visitorCompany || !visitorPhone || !visitorEmail || !visitorPassword 
        || !visitorHost
     )
     {
@@ -179,12 +176,22 @@ const Forms = () => {
             required="required"
             mt={2}
           />
+          
           <InputRightElement width="3rem" h="3.5rem" onClick={handleClick}>
             {show ? <BiShow /> : <BiHide />}
           </InputRightElement>
         </InputGroup>
 
-        <Select
+        <Input
+            onChange={e => handleChange(e)}
+            value={data.hostEmail}
+            type='hostEmail'
+            id='hostEmail'
+            mt={2}
+            placeholder='Host email'
+            required="required"
+          />
+        {/* <Select
           onChange={e => handleChange(e)}
           value={data.position}
           isRequired
@@ -195,26 +202,8 @@ const Forms = () => {
         >
           <option value="visitor">Visitor</option>
           <option value="contractor">Contractor</option>
-        </Select>
-        <Select
-          onChange={e => handleChange(e)}
-          value={data.host}
-          isRequired
-          id="host"
-          placeholder="Who are you visiting?"
-          mt={2}
-        >
-          {employee ? (
-            employee.map(user => {
-              return <option value={user._id}>{user.fullName} </option>;
-            })
-          ) : (
-            <option value="yvonne smith">Yvonne Smith</option>
-          )}
-
-          {/*  */}
-        </Select>
-
+        </Select> */}
+       
         <Button
           onClick={e => handleSubmit(e)}
           type="submit"

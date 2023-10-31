@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Dashboard from './components/Dashboard/Dashboard';
 import DashboardPage from './components/Dashboard/DashboardPage';
 import Host from './components/Dashboard/Dashboard Pages/Host/Host';
-import Admin from './components/Dashboard/Dashboard Pages/Admin/Admin';
+//import Admin from './components/Dashboard/Dashboard Pages/Admin/Admin';
 import AdminPage from './components/Dashboard/Dashboard Pages/Admin/AdminPage/AdminPage';
 import Forms from './components/Forms/Forms';
 import Report from './components/Dashboard/Dashboard Components/Reports/Report';
@@ -16,6 +16,9 @@ import Login from './components/Login/Login';
 import SignedIn from './components/SignedIn/SignedIn';
 import QrCodeGenerator from './components/Dashboard/Dashboard Pages/QrCodeGenerator/QrCodeGenerator';
 import QRCodeScanner from './components/QRCodeScanner/QRCodeScanner';
+import Home from './components/Home/Home';
+import HomePage from './components/Hompepage/homePage';
+import HostPage from './components/Hostpage/Hostpage';
 
 // Routes to various pages
 const App = () => {
@@ -23,12 +26,15 @@ const App = () => {
     <ChakraProvider>
       <Box>
       <Router>
-        <Routes>
-          <Route path='/' element={<BootsrapCarousel />}></Route>
+          <Routes>
+          <Route path='/' element={<HomePage />}></Route>
+          <Route path='/visitorPage' element={<BootsrapCarousel />}></Route>
+          <Route path='/hostPage' element={<HostPage />}></Route>
+          <Route path='/home' element={<Home />}></Route>
           <Route path='/dashboard' element={<Dashboard />}></Route>
           <Route path='/dashboardPage' element={<DashboardPage />}></Route>
           <Route path='/host' element={<Host />}></Route>
-          <Route path='/admin' element={<Admin />}></Route>
+          {/* <Route path='/admin' element={<Admin />}></Route> */}
           <Route path='/adminPage' element={<AdminPage />}></Route>
           <Route path='/signUp' element={<Forms />} ></Route>
           <Route path='/reports' element={<Report />}></Route>

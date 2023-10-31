@@ -39,8 +39,8 @@ const Sidebar = () => {
                         Host
                     </li>
                     <li className="sidebar_list_item" onClick={() => {
-                        navigate('/admin')
-                    }}>
+                        navigate('/adminPage')
+                   } }>
                         <VerifiedUser className='sidebar_icon' />
                         Admin
                     </li>
@@ -69,7 +69,7 @@ const Sidebar = () => {
                 <Link className="sidebar_title" to={'/'}>Go back</Link>
                 <ul className="sidebar_list">
                     <li className="sidebar_list_item" onClick={() => {
-                        navigate('/')
+                        navigate('/visitorPage')
                     }}>
                         <ArrowBack className='sidebar_icon'/>
                         Guest

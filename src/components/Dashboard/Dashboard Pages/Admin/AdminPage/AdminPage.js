@@ -1,6 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
 import './AdminPage.css';
-import axios from "axios"
 import Navbar from '../../../Dashboard Components/Navbar/Navbar';
 import Sidebar from '../../../Dashboard Components/Sidebar/Sidebar';
 import VisitorReadOnlyRow from './VisitorReadOnlyRow';
@@ -24,12 +23,9 @@ const AdminPage = () => {
     fullName: '',
     email: '',
     password: '',
-    Time_In: '',
-    Time_Out: '',
     Phone_Number: '',
     Company: '',
     Position: '',
-    Full_Name: '',
   });
 
   const [addEmployeeFormData, setAddFormEmployeeData] = useState({
@@ -44,12 +40,9 @@ const AdminPage = () => {
     Full_name: '',
     Email: '',
     Password: '',
-    Time_In: '',
-    Time_Out: '',
     Phone_Number: '',
     Company: '',
     Position: '',
-    Full_Name: '',
   });
 
   const [employeeEditFormData, setEmployeeEditFormData] = useState({
@@ -63,7 +56,7 @@ const AdminPage = () => {
   //fetching data from endpoint
   const fetchVisitorsData = async () => {
     const accessToken = localStorage.getItem("access_token")
-    const { data } = await API.get('/visitLogs', {headers: {"Authorization": `Bearer ${accessToken}`}});;
+    const { data } = await API.get('/guest', {headers: {"Authorization": `Bearer ${accessToken}`}});;
     setVisitors(data?.data ?? []);
     console.log("all us", visit);
   };
@@ -111,12 +104,15 @@ const AdminPage = () => {
     e.preventDefault();
 
     const fieldName = e.target.getAttribute('name');
-    const fielValue = e.target.value;
+    const fieldValue = e.target.value;
 
     const newFormData = { ...visitorEditFormData };
-    newFormData[fieldName] = fielValue;
+    newFormData[fieldName] = fieldValue;
 
+    console.log("dfd: ", fieldValue, fieldName)
+    console.log("yyyyyyyyyyyyyyy: ", newFormData)
     setVisitorEditFormData(newFormData);
+    
   };
 
   const handleEmployeeEditFormChange = e => {
@@ -204,22 +200,31 @@ const AdminPage = () => {
   const handleVisitorEditFormSubmit = e => {
     e.preventDefault();
 
-    const editedVisitor = {
-      Id: editVisitorId,
-      Full_name: visitorEditFormData.visitlog.guest_id.fullName,
-      Time_In: visitorEditFormData.visitlog.sign_in,
-      Time_Out: visitorEditFormData.visitlog.sign_out,
-      Full_Name: visitorEditFormData.visitlog.user_id.fullName,
-    };
+    // const editedVisitor = {
+    //   Id: editVisitorId,
+    //   Full_name: visitorEditFormData.guest.fullName,
+    //   Email: visitorEditFormData.guest.email,
+    //   Phone: visitorEditFormData.guest.phone,
+    //   Position: visitorEditFormData.guest.position,
+    // };
 
-    const newVisitors = [...visitors];
-    const index = visitors.findIndex(visitlog=> visitlog.guest_id._id === editVisitorId);
+    // const newVisitors = [...visitors];
+    // const index = visitors.findIndex(visitlog=> visitlog.guest_id._id === editVisitorId);
 
-    newVisitors[index] = editedVisitor;
-    setVisitors(newVisitors);
-    setEditVisitorId(null);
+    // newVisitors[index] = editedVisitor;
+    // setVisitors(newVisitors);
+    // setEditVisitorId(null);
 
-    API.put(`/updateVisit/${editVisitorId}`, editedVisitor);
+    API.put(`/update/${editVisitorId}`, visitorEditFormData);
+    setVisitorEditFormData({
+      Full_name: '',
+      Email: '',
+      Password: '',
+      Phone_Number: '',
+      Company: '',
+      Position: '',
+    })
+    setEditVisitorId(null)
   };
 
   const handleEmployeeEditFormSubmit = e => {
@@ -251,21 +256,19 @@ const AdminPage = () => {
   //edit click
   const handleVisitorEditClick = (e, visitor) => {
     e.preventDefault();
-    setEditVisitorId(visitor.Id);
-
+    // setEditVisitorId(visitor.Id);
+    
     const formValues = {
-      Full_name: visitor.Full_name,
-      Email: visitor.Email,
-      Password: visitor.Password,
-      sign_in: visitor.sign_in,
-      sign_out: visitor.sign_out,
-      Phone_Number: visitor.Phone_Number,
-      Company: visitor.Company,
-      Position: visitor.Position,
-      Full_Name: visitor.Full_Name,
+      Full_name: visitor.fullName,
+      Email: visitor.email,
+      Password: visitor.password,
+      Phone_Number: visitor.phone,
+      Company: visitor?.company,
+      Position: visitor?.position,
     };
-
+    
     setVisitorEditFormData(formValues);
+    setEditVisitorId(visitor._id)
   };
 
   const handleEmployeeEditClick = (e, employee) => {
@@ -345,9 +348,9 @@ const AdminPage = () => {
               <thead>
                 <tr>
                   <th>Visitor Name</th>
-                  <th>Time In</th>
-                  <th>Time Out</th>
-                  <th>Host</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Position</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -375,44 +378,44 @@ const AdminPage = () => {
             </table>
           </form>
 
-          {/* <h2 className="subtitle">Add a Visitor</h2>
-          <form className="add_form" onSubmit={handleAddVisitorFormSubmit}>
+          <h2 className="subtitle">Edit a Visitor</h2>
+          <form className="add_form" onSubmit={handleVisitorEditFormSubmit}>
             <input
               type="text"
-              name="full_name"
+              name="Full_name"
               required="required"
               placeholder="Name of visitor"
-              onChange={handleAddVisitorFormChange}
-              value={addVisitorFormData.full_name}
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.Full_name}
             />
             <input
               type="text"
-              name="sign_in"
+              name="Email"
               required="required"
-              placeholder="Time in"
-              onChange={handleAddVisitorFormChange}
-              value={addVisitorFormData.Time_In}
+              placeholder="Email"
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.Email}
             />
             <input
               type="text"
-              name="sign_out"
+              name="Phone_Number"
               required="required"
-              placeholder="Time out"
-              onChange={handleAddVisitorFormChange}
-              value={addVisitorFormData.Time_Out}
+              placeholder="Phone"
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.Phone_Number}
             />
             <input
               type="text"
-              name="full_Name"
+              name="Position"
               required="required"
-              placeholder="Host"
-              onChange={handleAddVisitorFormChange}
-              value={addVisitorFormData.Full_Name}
+              placeholder="Position"
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.Position}
             />
             <button type="submit" className="add_btn">
-              Add
+              Edit
             </button>
-          </form> */}
+          </form>
 
           <span className="table_title admin_title">ADMIN EMPLOYEE DATA</span>
           <form onSubmit={handleEmployeeEditFormSubmit}>

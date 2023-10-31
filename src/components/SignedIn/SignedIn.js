@@ -1,12 +1,15 @@
 import { Text, Box } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
-import { API } from '../../api/axiosClient';
+import { useLocation, useNavigate } from 'react-router-dom';
+//import { API } from '../../api/axiosClient';
 import { useToast } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 // Signed In
 const SignedIn = () => {
   const navigate = useNavigate()
+  const location = useLocation().pathname
   const toast = useToast()
+  console.log("signedIn", location);
 
   const handleMessage = () => {
     const el = document.getElementById("message")
@@ -16,7 +19,7 @@ const SignedIn = () => {
       }
   }
 
-  setTimeout(handleMessage, 5000)
+  
 
   const handleConfirmedMessage = () => {
     const el = document.getElementById("message")
@@ -24,26 +27,34 @@ const SignedIn = () => {
     {
       el.textContent = "Your host has been notified. Kindly wait for him/her" 
     }
+   
   }
+  useEffect(() => { 
+    if (location === "/signedIn")
+    {
+          setTimeout(handleMessage, 5000)
+          setTimeout(handleConfirmedMessage, 10000)
+      setTimeout(() =>{ navigate("/")}, 10000)
+    }
 
-  setTimeout(handleConfirmedMessage, 10000)
+  },[])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    await API.put('/guest/logout', { visitLogId: localStorage.getItem('visitLogId') })
-    localStorage.clear()
+  //   await API.put('/guest/logout', { visitLogId: localStorage.getItem('visitLogId') })
+  //   localStorage.clear()
 
-    toast({
-      title: 'See you another time. Logout successful',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-      position: 'top',
-    });
+  //   toast({
+  //     title: 'See you another time. Logout successful',
+  //     status: 'success',
+  //     duration: 5000,
+  //     isClosable: true,
+  //     position: 'top',
+  //   });
 
-    navigate("/")
-  };
+  //   navigate("/")
+  // };
 
   return (
     <Box
@@ -72,7 +83,7 @@ const SignedIn = () => {
           <span id="message"></span>
         </Text>
 
-        <button onClick={handleSubmit} className='logout_btn' style={{ backgroundColor: 'red', padding: '10px 35px', borderRadius: '10px', color: 'white', fontWeight: 600, letterSpacing: '1.5px', fontSize:'1.3em', marginTop: "4rem"}}>Logout</button>
+       {/* <button onClick={handleSubmit} className='logout_btn' style={{ backgroundColor: 'red', padding: '10px 35px', borderRadius: '10px', color: 'white', fontWeight: 600, letterSpacing: '1.5px', fontSize:'1.3em', marginTop: "4rem"}}>Logout</button> */}
       </Box>
     </Box>
   );

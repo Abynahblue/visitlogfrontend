@@ -1,7 +1,7 @@
 import React from "react";
 
 const VisitorsComponent = ({ visitors }) => {
-
+console.log("visitors: ", visitors);
   return (
     <div className="container">
       {visitors.length === 0 ? (
@@ -17,7 +17,6 @@ const VisitorsComponent = ({ visitors }) => {
               <th scope="col">Host</th>
               <th scope="col">Time In</th>
               <th scope="col">Time Out</th>
-              <th scope="col">Position</th>
             </tr>
           </thead>
           <tbody>
@@ -27,10 +26,13 @@ const VisitorsComponent = ({ visitors }) => {
                 <td>{visitor.guest_id.company}</td>
                 <td>{visitor.guest_id.email}</td>
                 <td>{visitor.guest_id.phone}</td>
-                <td>{visitor.user_id.fullName}</td>
-                <td>{visitor.sign_in}</td>
-                <td>{visitor.sign_out?.date ?? "Not signed out"}</td>
-                <td>{visitor.user_id.position}</td>
+                <td>{visitor.hostEmail}</td>
+                <td>{new Date(visitor.sign_in).toLocaleString()}</td>
+                <td>
+    {(visitor.sign_out && visitor.sign_out.date !== null )
+    ? new Date(visitor.sign_out.date).toLocaleString()
+    : "Not signed out"}
+</td>
               </tr>
             ))}
           </tbody>
