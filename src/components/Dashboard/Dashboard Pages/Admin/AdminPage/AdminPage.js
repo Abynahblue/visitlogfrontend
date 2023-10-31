@@ -57,8 +57,8 @@ const AdminPage = () => {
   const fetchVisitorsData = async () => {
     const accessToken = localStorage.getItem("access_token")
     const { data } = await API.get('/guest', {headers: {"Authorization": `Bearer ${accessToken}`}});;
+    console.log("all us", data?.data);
     setVisitors(data?.data ?? []);
-    console.log("all us", visit);
   };
 
   useEffect(() => {
@@ -197,16 +197,15 @@ const AdminPage = () => {
     }
   };
 
-  const handleVisitorEditFormSubmit = e => {
+  const handleVisitorEditFormSubmit = async e => {
     e.preventDefault();
 
-    // const editedVisitor = {
-    //   Id: editVisitorId,
-    //   Full_name: visitorEditFormData.guest.fullName,
-    //   Email: visitorEditFormData.guest.email,
-    //   Phone: visitorEditFormData.guest.phone,
-    //   Position: visitorEditFormData.guest.position,
-    // };
+    const editedVisitor = {
+      fullName: visitorEditFormData.Full_name,
+      email: visitorEditFormData.Email,
+      phone: visitorEditFormData.Phone_Number,
+      position: visitorEditFormData.Position,
+    };
 
     // const newVisitors = [...visitors];
     // const index = visitors.findIndex(visitlog=> visitlog.guest_id._id === editVisitorId);
@@ -215,7 +214,7 @@ const AdminPage = () => {
     // setVisitors(newVisitors);
     // setEditVisitorId(null);
 
-    API.put(`/update/${editVisitorId}`, visitorEditFormData);
+     await API.put(`/update/${editVisitorId}`, editedVisitor);
     setVisitorEditFormData({
       Full_name: '',
       Email: '',
@@ -225,6 +224,7 @@ const AdminPage = () => {
       Position: '',
     })
     setEditVisitorId(null)
+    await fetchVisitorsData();
   };
 
   const handleEmployeeEditFormSubmit = e => {
