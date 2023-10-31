@@ -1,14 +1,12 @@
 import { Text, Box } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 //import { API } from '../../api/axiosClient';
-import { useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 // Signed In
 const SignedIn = () => {
   const navigate = useNavigate()
   const location = useLocation().pathname
-  const toast = useToast()
   console.log("signedIn", location);
 
   const handleMessage = () => {
@@ -34,10 +32,10 @@ const SignedIn = () => {
     {
           setTimeout(handleMessage, 5000)
           setTimeout(handleConfirmedMessage, 10000)
-      setTimeout(() =>{ navigate("/")}, 10000)
+      setTimeout(() =>{ navigate("/visitorPage")}, 10000)
     }
 
-  },[])
+  },[location, navigate])
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();

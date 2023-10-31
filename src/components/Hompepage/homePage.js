@@ -1,7 +1,6 @@
-import { Box, Center, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../assets/amalitech-logo-1.svg';
-import { Button } from 'react-bootstrap';
 import Navbutton from './Navbutton/NavButton';
 
 

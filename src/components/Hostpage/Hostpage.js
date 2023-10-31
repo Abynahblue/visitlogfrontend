@@ -83,7 +83,7 @@ const HostPage = () => {
         <div className="host_container">
         <h2 className="subtitle">Generate Qr Code for Guest</h2>
         {formStep === 1 &&(
-            <form className="add_form" onSubmit={handleHostFormSubmit}>
+            <form className="add_form" onSubmit={handleHostFormSubmit} style={{marginTop: "80px"}}>
             <h4 className="title">Please enter your email</h4>
             <input
               type="text"
@@ -97,7 +97,7 @@ const HostPage = () => {
             </Button></form>
         )}
             {formStep === 2 &&(
-            <form className="add_form" onSubmit={handleCodeFormSubmit} style={{marginTop: "20px"}}>
+            <form className="add_form" onSubmit={handleCodeFormSubmit} style={{marginTop: "80px"}}>
             <h4 className="title">Please enter the code sent to your email</h4>
             <div className="confirmation-code-container">
             <input
@@ -156,7 +156,7 @@ const HostPage = () => {
               
             /> */}
         {formStep === 3 && (
-            <form className="add_form" onSubmit={handleSumbit} style={{ marginTop: "20px" }}>
+            <form className="add_form" onSubmit={handleSumbit} style={{ marginTop: "80px" }}>
             <h4 className="title">Please enter the guest's email</h4>
             <input
               type="text"
