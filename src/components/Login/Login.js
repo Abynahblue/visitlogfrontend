@@ -8,22 +8,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 toast.configure()
 const Login = () => {
-    const [employee, setEmployee] = useState([]);
+    //const [employee, setEmployee] = useState([]);
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const toast = useToast()
-    const qrlogindata = useLocation().state
-
-    const fetchEmployeesData = async () => {
-      const { data } = await API.get('/guest/search');
-      setEmployee(data?.data ?? []);
-    };
+  const qrlogindata = useLocation().state
+  console.log('log in');    // const fetchEmployeesData = async () => {
+    //   const { data } = await API.get('/guest/search');
+    //   setEmployee(data?.data ?? []);
+    // };
   
-    const navigate = useNavigate()
+     const navigate = useNavigate()
   
-    useEffect(() => {
-      fetchEmployeesData();
-    }, []);
+    // useEffect(() => {
+    //   fetchEmployeesData();
+    // }, []);
   
     // Get check in time
     const timestamp = new Date(Date.now()).toISOString();
@@ -35,16 +34,16 @@ const Login = () => {
     {
     console.log("qrdC BVNM,M: ",qrlogindata);
 
-      return {email: qrlogindata?.email, password: qrlogindata?.password, position:''}
+      return {email: qrlogindata?.email, password: qrlogindata?.password, hostEmail: qrlogindata?.hostEmail}
     }
     return {
       email: '',
       password: '',
-      position: '',
+      hostEmail:''
     }
   }
   );
-  
+  console.log(data);
   
     const handleChange = e => {
       const newData = { ...data };
@@ -54,14 +53,14 @@ const Login = () => {
 
     const visitorEmail = data.email
   const visitorPassword = data.password
-  const visitorPosition = data.position
+  const visitorHost = data.hostEmail
+  //const visitorPosition = data.position
   
     const handleSubmit = async (e) => {
       e.preventDefault();
       const newData = Object.assign(data, {timestamp: timestamp})
 
-      if(!visitorEmail || !visitorPassword 
-        || !visitorPosition) {
+      if(!visitorEmail || !visitorPassword || !visitorHost) {
         toast({
           title: 'Fill all fields',
           status: 'warning',
@@ -151,19 +150,17 @@ const Login = () => {
       </InputRightElement>
       </InputGroup>
 
-      <Select
+      <Input
         onChange={e => handleChange(e)}
-        value={data.position}
+        value={data.hostEmail}
         isRequired
-        id="position"
-        placeholder="Select your position"
+        id="hostEmail"
+        placeholder="Host email"
         mt={2}
         required='required'
-      >
-        <option value="visitor">Visitor</option>
-        <option value="contractor">Contractor</option>
-      </Select>
-      <Select
+      />
+       
+      {/* <Input
         onChange={e => handleChange(e)}
         value={data.host}
         isRequired
@@ -180,7 +177,7 @@ const Login = () => {
         )}
 
         {/*  */}
-      </Select>
+       
 
       <Button
         onClick={handleSubmit}

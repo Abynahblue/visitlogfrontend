@@ -43,7 +43,7 @@ const Host = () => {
                     <td className="visitor_column">
                       <div className="visitor_name">{visitlog.guest_id?.fullName}</div>
                     </td>
-                    <td>{visitlog.user_id?.fullName}</td>
+                    <td>{visitlog.hostEmail}</td>
                     <td>{new Date(visitlog.sign_in).toLocaleString()}</td>
                     <td>{(visitlog.sign_out && visitlog.sign_out.date !== null )
                     ? new Date(visitlog.sign_out.date).toLocaleString()

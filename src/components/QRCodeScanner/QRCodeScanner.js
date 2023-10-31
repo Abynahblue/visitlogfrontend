@@ -4,6 +4,8 @@ import QrScan from 'react-qr-reader';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 import { Button } from 'react-bootstrap';
+import { API } from '../../api/axiosClient';
+import { toast } from 'react-toastify';
 
 const QRCodeScanner = () => {
   const [qrscan, setQrscan] = useState(null);
@@ -18,11 +20,21 @@ const QRCodeScanner = () => {
   };
 
   useEffect(() => {
-    if (qrscan)
+    if (qrscan && qrscan.email && qrscan.password )
     {
+
       navigate({pathname:`/visitorLogin`},{state: qrscan})
 
-    }
+    } else if (qrscan && qrscan.visitLogId)
+    {
+      API.put("/guest/logout", qrscan).then((response) => {
+        console.log(response);
+        setTimeout(() => {
+          toast.success("Guest logged out successfully")
+          navigate("/visitorPage")
+        }, 1000)
+       })
+    } 
   },[qrscan, navigate])
   const handleError = err => {
     console.log(err);

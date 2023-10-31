@@ -4,6 +4,7 @@ import Home from '../Home/Home'
 import Forms from '../Forms/Forms'
 import SignedIn from '../SignedIn/SignedIn';
 import Login from '../Login/Login';
+import HomePage from '../Hompepage/homePage';
 
 // Homepage Carousel
 const BootstrapCarousel = () => {
@@ -14,6 +15,12 @@ const BootstrapCarousel = () => {
         <Carousel.Item>
           <div style={{height: '100vh', backgroundColor: "rgba(255, 255, 255, 0.8)"}}>
             <Home />
+          </div>
+        </Carousel.Item>
+
+        <Carousel.Item>
+          <div style={{height: '100vh', backgroundColor: "rgba(255, 255, 255, 0.8)"}}>
+            <HomePage />
           </div>
         </Carousel.Item>
 

@@ -15,8 +15,10 @@ const Report = () => {
 
   useEffect(() => {
     const getAllReports = async () => {
-      try {
-        const response = await API.get('/hosts');
+      try
+      {
+        const accessToken = localStorage.getItem("access_token")
+        const response = await API.get('/user', { headers: { "Authorization": `Bearer ${accessToken}` } });
         setReports(response.data.data);
         console.log(response);
       } catch (err) {
@@ -33,9 +35,9 @@ const Report = () => {
     const getVisitorsReport = async () => {
       try
       {
-        const accessToken = localStorage.getItem("access_token")
+         const accessToken = localStorage.getItem("access_token")
         const response = await API.get('/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
-        setVisitors(response.data.data);
+        setVisitors(response.data.data ?? []);
         console.log(response);
       } catch (err) {
         console.log(err);
@@ -62,6 +64,8 @@ const Report = () => {
 
   const visitorsReport = visitors.filter(visitlog => visitlog)
   console.log(visitorsReport)
+
+  console.log("reports: ", charts)
 
   const graphReport = charts.filter(chart => chart)
   console.log(graphReport)
