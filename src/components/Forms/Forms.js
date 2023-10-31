@@ -7,7 +7,8 @@ import {
   Box,
   InputGroup,
   InputRightElement,
-  useToast
+  useToast,
+  Select
 } from '@chakra-ui/react';
 import { API } from '../../api/axiosClient';
 import { BiHide, BiShow } from 'react-icons/bi';
@@ -43,6 +44,7 @@ const Forms = () => {
     tel: '',
     email: '',
     password: '',
+    position: '',
     hostEmail:''
   });
 
@@ -58,6 +60,7 @@ const Forms = () => {
   const visitorEmail = data.email
   const visitorPassword = data.password
   const visitorHost = data.hostEmail
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -191,7 +194,7 @@ const Forms = () => {
             placeholder='Host email'
             required="required"
           />
-        {/* <Select
+        <Select
           onChange={e => handleChange(e)}
           value={data.position}
           isRequired
@@ -202,7 +205,7 @@ const Forms = () => {
         >
           <option value="visitor">Visitor</option>
           <option value="contractor">Contractor</option>
-        </Select> */}
+        </Select>
        
         <Button
           onClick={e => handleSubmit(e)}
