@@ -4,7 +4,7 @@ import { Home,BarChart, AccountCircle, Save, VerifiedUser, ArrowBack, CropFree }
 import { Link, useNavigate } from 'react-router-dom';
 
 // Sidebar of Dashboard
-const Sidebar = () => {
+const  Sidebar = () => {
     const navigate = useNavigate()
 
 
@@ -14,7 +14,7 @@ const Sidebar = () => {
             <div className="sidebar_menu">
                 <h3 className="sidebar_title">Dashboard</h3>
                 <ul className="sidebar_list">
-                    <li className="sidebar_list_item active" onClick={() => {
+                    <li className="sidebar_list_item" onClick={() => {
                         navigate('/dashboardPage')
                     }}>
                         <Home className='sidebar_icon'/>
