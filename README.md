@@ -1,7 +1,6 @@
 # ViLog
 
-- [Live Project](https://vilog.netlify.app/)
-- NB:Faced difficulties hosting Backend to Heroku. Only Frontend is available for now.
+- [Live Project](https://visitorslog.onrender.com)
 
 ####  The challenge was to build an automated monitoring system for AmaliTech that would monitor visitors to AmaliTech premises, and provide accurate and reliable reports to AmaliTech Management.
 
@@ -36,10 +35,11 @@ This project was built using these technologies:
 - Markdown
 - React
 - Netlify
-- Heroku
+- Render
 - Nodejs
-- MySQL
+- MongoDb
 - Express js
+- Typescript
 
 #### How to start the project?
 ```sh
@@ -49,16 +49,13 @@ FRONTEND:: In the Terminal;
 
 BACKEND:: In the Terminal;
 1. install node modules using ***npm install***
-2. run ***npm start***
+2. run ***npm run start***
 ```
 
-#### What we learned?
-> ##### Nicholas Darko Brown
+#### What I learned?
     - Experience in using various UI Libraries for fast creation of web apps.
     - Authentication of forms
     - Implementation of node mailer 
-
-> ##### Andrew Koffi N'dirri
     - Implementation of node mailer for sending email to host
 
 
