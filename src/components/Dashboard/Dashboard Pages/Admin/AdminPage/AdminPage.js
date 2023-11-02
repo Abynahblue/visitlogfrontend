@@ -356,7 +356,7 @@ const AdminPage = () => {
               </thead>
               <tbody>
                 {visitors.map(visitor => (
-                  <Fragment>
+                  <Fragment key={visitor?._id}>
                     {editVisitorId === visitor.id ? (
                       <VisitorEditableRow
                         visitorEditFormData={visitorEditFormData}
@@ -432,7 +432,7 @@ const AdminPage = () => {
               </thead>
               <tbody>
                 {employees.map(user => (
-                  <Fragment>
+                  <Fragment key={user?._id}>
                     {editEmployeeId === user._id ? (
                       <EmployeeEditableRow
                         employeeEditFormData={employeeEditFormData}
