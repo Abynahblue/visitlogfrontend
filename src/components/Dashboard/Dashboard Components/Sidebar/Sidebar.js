@@ -18,8 +18,6 @@ const Sidebar = () => {
         navigate(targetPath);
     }
 
-
-
   return (
     <div className='sidebar_container'>
         <div className='sidebar_wrapper'>
