@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Sidebar.css'
 import { Home,BarChart, AccountCircle, Save, VerifiedUser, ArrowBack, CropFree } from '@material-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,10 +8,16 @@ const Sidebar = () => {
     const [activeItem, setActiveItem] = useState(null)
     const navigate = useNavigate()
 
+    useEffect(() => {
+        setActiveItem(()=> localStorage.getItem("targetPath"))
+    }, [])
+
     const handleClick = (targetPath) => {
-        setActiveItem(targetPath)
+        setActiveItem(() => targetPath)
+        localStorage.setItem("targetPath", targetPath)
         navigate(targetPath);
     }
+
 
 
   return (

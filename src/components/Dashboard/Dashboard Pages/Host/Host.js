@@ -39,7 +39,7 @@ const Host = () => {
               </thead>
               <tbody>
                 {visitors.map(visitlog => (
-                  <tr>
+                  <tr key={visitlog?._id}>
                     <td className="visitor_column">
                       <div className="visitor_name">{visitlog.guest_id?.fullName}</div>
                     </td>
