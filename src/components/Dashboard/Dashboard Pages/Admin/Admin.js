@@ -54,7 +54,6 @@ const Admin = () => {
 
     try {
       const { data } = await API.post('/user/adminLogin',{ userEmail, password });
-      console.log(data);
 
       if (data.message === 'Logged in') {
         toast({
@@ -78,8 +77,6 @@ const Admin = () => {
     }
   };
 
-  console.log(userEmail);
-  console.log(password);
 
   return (
     <Center h="100vh" bg="blackAlpha.400">

@@ -1,17 +1,15 @@
-import { Box, Button, FormControl, Input, InputGroup, InputRightElement, Select, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, FormControl, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react';
 import { API } from '../../api/axiosClient';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { BiHide, BiShow } from 'react-icons/bi';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 
-toast.configure()
 const Login = () => {
     //const [employee, setEmployee] = useState([]);
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
-    const toast = useToast()
   const qrlogindata = useLocation().state
   console.log('log in');    // const fetchEmployeesData = async () => {
     //   const { data } = await API.get('/guest/search');
@@ -27,7 +25,7 @@ const Login = () => {
     // Get check in time
     const timestamp = new Date(Date.now()).toISOString();
   
-  const url = '/visitorLogin';
+  //const url = '/visitorLogin';
 
   const [data, setData] = useState(() => { 
     if (qrlogindata)
@@ -61,13 +59,7 @@ const Login = () => {
       const newData = Object.assign(data, {timestamp: timestamp})
 
       if(!visitorEmail || !visitorPassword || !visitorHost) {
-        toast({
-          title: 'Fill all fields',
-          status: 'warning',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
-        })
+        toast.warn("Fill all fields")
         return;
       }
   
@@ -77,24 +69,14 @@ const Login = () => {
         if (data)
         {
           localStorage.setItem('visitLogId', data.data.visitLog._id)
-          toast({
-            title: 'Login successful',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-            position: 'top',
-          });
+          toast.success("Login successful");
           navigate('/signedIn');
         }
-      } catch(error) {
-        toast({
-          title: 'Failed login',
-          description: error.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
-        });
+      } catch (error)
+      {
+        const errorMessage = error.response ? error.response.data.message : 'Invalid email or password';
+        console.log(errorMessage);
+        toast.error(errorMessage);
       }
       
     };

@@ -19,7 +19,6 @@ const Chart = ({ title, data, dataKey, grid }) => {
   const fetchChart = async () => {
     const { data } = await API.get('/monthly-visits');
     setChart(data.data?? []);
-    console.log("dada",data)
   }
 
   useEffect(() => {

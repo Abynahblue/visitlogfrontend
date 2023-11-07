@@ -5,21 +5,15 @@ import 'jspdf-autotable';
 const GenerateVisitorPDF = visitors => {
     const doc = new jsPDF();
 
-    const vCol = ['Id', 'Visitor', 'Company', 'Email',  'Phone', 'Host', 'Time_In', 'Time_Out', 'Position'];
+    const vCol = ['Visitor', 'Email',  'Host Email', 'Created By', 'Created At', ];
     const vRow = [];
-
-    visitors.forEach(visitor => {
+  visitors.forEach(visitor => {
       const visitorData = [
-        visitor.Id,
-        visitor.Full_name,
-        visitor.Company,
-        visitor.Email,
-        visitor.Phone_Number,
-        visitor.Full_Name,
-        visitor.Time_In,
-        visitor.Time_Out,
-        visitor.Position,
-        
+        visitor.guest_id.fullName,
+        visitor.guest_id.email,
+        visitor.guest_id?.qrCodeId?.email,
+         visitor.guest_id?.qrCodeId?.admin || visitor.guest_id?.qrCodeId?.host,
+         visitor.guest_id.qrCodeId?.createdAt ? new Date(visitor.guest_id.qrCodeId?.createdAt).toLocaleString() : "null",
       ];
       vRow.push(visitorData);
     });

@@ -20,15 +20,12 @@ const Report = () => {
         const accessToken = localStorage.getItem("access_token")
         const response = await API.get('/user', { headers: { "Authorization": `Bearer ${accessToken}` } });
         setReports(response.data.data);
-        console.log(response);
       } catch (err) {
         console.error(err);
       }
     };
     getAllReports();
   }, []);
-
-  console.log(reports);
 
   //new
   useEffect(() => {
@@ -38,7 +35,6 @@ const Report = () => {
          const accessToken = localStorage.getItem("access_token")
         const response = await API.get('/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
         setVisitors(response.data.data ?? []);
-        console.log(response);
       } catch (err) {
         console.log(err);
       }
@@ -51,7 +47,6 @@ const Report = () => {
       try {
         const response = await API.get('/monthly-visits');
         setCharts(response.data.data);
-        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -60,15 +55,10 @@ const Report = () => {
   }, []);
 
   const reportTickets = reports.filter(report => report);
-  console.log(reportTickets);
 
   const visitorsReport = visitors.filter(visitlog => visitlog)
-  console.log(visitorsReport)
-
-  console.log("reports: ", charts)
 
   const graphReport = charts.filter(chart => chart)
-  console.log(graphReport)
 
   return (
     <div>

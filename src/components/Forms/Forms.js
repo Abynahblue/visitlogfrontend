@@ -7,12 +7,12 @@ import {
   Box,
   InputGroup,
   InputRightElement,
-  useToast,
   Select
 } from '@chakra-ui/react';
 import { API } from '../../api/axiosClient';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Visitor submission form
 const Forms = () => {
@@ -21,7 +21,6 @@ const Forms = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
-  const toast = useToast()
 
   const navigate = useNavigate();
 
@@ -70,15 +69,13 @@ const Forms = () => {
        || !visitorHost
     )
     {
-      toast({
-        title: 'Fill all fields',
-        status: 'warning',
-        duration: 3000,
-        isClosable: true,
-        position: 'top',
-      })
+      toast.warn('Fill all fields')
       return;
     } 
+    if (visitorPassword.length < 8)
+    {
+      toast.error('Password must be at least 8 characters long')
+    }
 
     try {
        const {data} = await API.post('/guest', newData);
@@ -86,24 +83,11 @@ const Forms = () => {
       if (data)
       {
         console.log("data response", data)
-        toast({
-          title: 'Sign up successful',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
-        });
+        toast.success('Sign up successful');
         navigate('/signedIn');
       }
     } catch(error) {
-      toast({
-        title: 'Failed login',
-        description: error.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-        position: 'top',
-      });
+      toast.error('Failed login');
     }
 
   };

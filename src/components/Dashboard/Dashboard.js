@@ -6,12 +6,12 @@ import {
   Heading,
   Input,
   InputGroup,
-  InputRightElement,
-  useToast,
+  InputRightElement
 } from '@chakra-ui/react';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../api/axiosClient';
+import { toast } from 'react-toastify';
 
 // Dashboard Login
 const Dashboard = () => {
@@ -25,9 +25,7 @@ const Dashboard = () => {
     password: '',
   });
 
-  console.log(state);
 
-  const toast = useToast();
 
   const handleInputChange = e => {
     const value = e.target.value;
@@ -43,13 +41,7 @@ const Dashboard = () => {
 
   const handleLogin = async () => {
     if (!userEmail || !password) {
-      toast({
-        title: 'Fill all fields',
-        status: 'warning',
-        duration: 3000,
-        isClosable: true,
-        position: 'top',
-      })
+      toast.warn('Fill all fields')
       return;
     } 
 
@@ -66,31 +58,18 @@ const Dashboard = () => {
 
       if (data.status === 200)
       {
-        console.log(data.data);
         localStorage.setItem("access_token", data.data.data.token)
-        toast({
-          title: 'Login successful',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-          position: 'top',
-        });
+        toast.success('Login successful');
         navigate('/dashboardPage');
       }
-    } catch (err) {
-      toast({
-        title: 'Failed login',
-        description: err.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-        position: 'top',
-      });
+    } catch (error)
+    {
+      const errorMessage = error.response ? error.response.data.message : 'Invalid email or password';
+      toast.error(errorMessage);
     }
   };
 
-  console.log(userEmail);
-  console.log(password);
+ 
 
   return (
     <Center h="100vh" bg="blackAlpha.400">

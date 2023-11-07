@@ -10,10 +10,10 @@ const ReportsComponent = ({ reports }) => {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Host</th>
-              <th scope="col">Position</th>
-              <th scope="col">Phone Number</th>
-              <th scope="col">Position</th>
+              <th style={{color: "black"}} scope="col">Host</th>
+              <th style={{color: "black"}} scope="col">Position</th>
+              <th style={{color: "black"}} scope="col">Phone Number</th>
+              <th style={{color: "black"}} scope="col">Position</th>
             </tr>
           </thead>
           <tbody>
