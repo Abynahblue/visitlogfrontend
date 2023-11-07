@@ -9,7 +9,6 @@ const LargeWidget = () => {
   const fetchVisitors = async () => {
     const accessToken = localStorage.getItem("access_token")
     const { data } = await API.get('/visitLogs', { headers: { "Authorization": `Bearer ${accessToken}` } });
-    console.log("datata: ", data)
     setVisitors(data.data);
   };
 

@@ -9,7 +9,6 @@ const FeaturedInfo = () => {
   const fetchChart = async () => {
     const { data } = await API.get('/monthly-visits');
     setCharts(data.data);
-    console.log(data);
   };
 
   useEffect(() => {

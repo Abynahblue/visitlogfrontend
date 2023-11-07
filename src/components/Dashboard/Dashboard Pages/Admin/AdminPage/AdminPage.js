@@ -7,6 +7,7 @@ import { API } from '../../../../../api/axiosClient';
 import EmployeeReadOnlyRow from './EmployeeReadOnlyRow';
 import VisitorEditableRow from './VisitorEditableRow';
 import EmployeeEditableRow from './EmployeeEditableRow';
+import { Create } from '@material-ui/icons';
 
 const AdminPage = () => {
   const [visitors, setVisitors] = useState([]);
@@ -43,6 +44,9 @@ const AdminPage = () => {
     Phone_Number: '',
     Company: '',
     Position: '',
+    QrCode:'',
+    userEmail: '',
+    createdAt:''
   });
 
   const [employeeEditFormData, setEmployeeEditFormData] = useState({
@@ -57,7 +61,6 @@ const AdminPage = () => {
   const fetchVisitorsData = async () => {
     const accessToken = localStorage.getItem("access_token")
     const { data } = await API.get('/guest', {headers: {"Authorization": `Bearer ${accessToken}`}});;
-    console.log("all us", data?.data);
     setVisitors(data?.data ?? []);
   };
 
@@ -68,7 +71,6 @@ const AdminPage = () => {
   const fetchEmployeesData = async () => {
     const { data } = await API.get('/hosts');
     setEmployees(data?.data ?? []);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -96,7 +98,6 @@ const AdminPage = () => {
 
     const newFormData = { ...addEmployeeFormData };
     newFormData[fieldName] = fielValue;
-    console.log(newFormData)
     setAddFormEmployeeData(newFormData);
   };
 
@@ -109,8 +110,6 @@ const AdminPage = () => {
     const newFormData = { ...visitorEditFormData };
     newFormData[fieldName] = fieldValue;
 
-    console.log("dfd: ", fieldValue, fieldName)
-    console.log("yyyyyyyyyyyyyyy: ", newFormData)
     setVisitorEditFormData(newFormData);
     
   };
@@ -188,7 +187,6 @@ const AdminPage = () => {
 
     if (userToEdit)
     {
-      console.log("user useer: ", userToEdit)
       API.put(`/users/${userToEdit._id}`, newEmployee);
       setUserToEdit(null);
     } else
@@ -205,6 +203,9 @@ const AdminPage = () => {
       email: visitorEditFormData.Email,
       phone: visitorEditFormData.Phone_Number,
       position: visitorEditFormData.Position,
+      qrCodeId: visitorEditFormData.QrCode,
+      User: visitorEditFormData.userEmail,
+      createdAt: visitorEditFormData.createdAt
     };
 
     // const newVisitors = [...visitors];
@@ -222,6 +223,9 @@ const AdminPage = () => {
       Phone_Number: '',
       Company: '',
       Position: '',
+      qrCodeId: '',
+      User: '',
+      createdAt:''
     })
     setEditVisitorId(null)
     await fetchVisitorsData();
@@ -238,10 +242,8 @@ const AdminPage = () => {
       Phone_Number: employeeEditFormData.phone,
       Position: employeeEditFormData.position,
     };
-    console.log(editedEmployee);
 
     const newEmployees = [...employees];
-    console.log(newEmployees);
     const index = employees.findIndex(
       employee => employee.Id === editEmployeeId
     );
@@ -265,6 +267,9 @@ const AdminPage = () => {
       Phone_Number: visitor.phone,
       Company: visitor?.company,
       Position: visitor?.position,
+      qrCodeId: visitor?.QrCode,
+      User: visitor?.userEmail,
+      createdAt: visitor.createdAt
     };
     
     setVisitorEditFormData(formValues);
@@ -272,7 +277,6 @@ const AdminPage = () => {
   };
 
   const handleEmployeeEditClick = (e, employee) => {
-    console.log("lslsl: ", employee)
     e.preventDefault();
     setEditEmployeeId(employee.Id); 
     setUserToEdit(employee)
@@ -293,7 +297,6 @@ const AdminPage = () => {
     };
 
     setEmployeeEditFormData(formValues);
-    console.log(formValues,"hello")
   };
 
   // cancel button
@@ -351,6 +354,9 @@ const AdminPage = () => {
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Position</th>
+                  <th>QrCode</th>
+                  <th>Created By</th>
+                  <th>Created At</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -412,6 +418,30 @@ const AdminPage = () => {
               onChange={handleVisitorEditFormChange}
               value={visitorEditFormData.Position}
             />
+            {/* <input
+              type="text"
+              name="QrCode Id"
+              required="required"
+              placeholder="QrCode Id"
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.QrCode}
+            /> */}
+            {/* <input
+              type="text"
+              name="User"
+              required="required"
+              placeholder="User"
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.userEmail}
+            /> */}
+            {/* <input
+              type="text"
+              name="Created At"
+              required="required"
+              placeholder="Created At"
+              onChange={handleVisitorEditFormChange}
+              value={visitorEditFormData.createdAt}
+            /> */}
             <button type="submit" className="add_btn">
               Edit
             </button>

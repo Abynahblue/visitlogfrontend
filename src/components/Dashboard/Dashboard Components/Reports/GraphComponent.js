@@ -9,8 +9,8 @@ const GraphComponent = ({ charts }) => {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Months</th>
-            <th scope="col">Visits</th>
+            <th style={{color: "black"}} scope="col">Months</th>
+            <th style={{color: "black"}} scope="col">Visits</th>
           </tr>
         </thead>
         <tbody>

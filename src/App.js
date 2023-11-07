@@ -19,6 +19,9 @@ import QRCodeScanner from './components/QRCodeScanner/QRCodeScanner';
 import Home from './components/Home/Home';
 import HomePage from './components/Hompepage/homePage';
 import HostPage from './components/Hostpage/Hostpage';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 // Routes to various pages
 const App = () => {
@@ -44,7 +47,7 @@ const App = () => {
           <Route path='/qrscanner' element={<QRCodeScanner />}></Route>
         </Routes>
       </Router>
-        
+      <ToastContainer />
       </Box>
     </ChakraProvider>
   );

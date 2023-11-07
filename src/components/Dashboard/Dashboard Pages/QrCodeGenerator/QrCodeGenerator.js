@@ -15,7 +15,9 @@ const QrCodeGenerator = () => {
   };
   const handleSumbit = event => {
     event.preventDefault()
-    API.post('/guest/generateQrCode', { email: guestEmail }).then(response => {
+    
+    const accessToken = localStorage.getItem("access_token")
+    API.post('/guest/generateQrCode', { email: guestEmail }, { headers: { "Authorization": `Bearer ${accessToken}` }}).then(response => {
       setQr(response.data.data.qrCode)
       setMsg(response.data.data.message)
     }) ;

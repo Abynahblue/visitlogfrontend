@@ -5,16 +5,16 @@ import 'jspdf-autotable';
 const GeneratePDF = reports => {
     const doc = new jsPDF();
 
-    const tCol = ['Id', 'Full_Name', 'Email', 'Position', 'Phone_Number'];
+    const tCol = ['Id', 'Name', 'Email', 'Position', 'Phone'];
     const tRow = [];
 
     reports.forEach(report => {
       const reportData = [
-        report.Id,
-        report.Full_Name,
-        report.Email,
-        report.Position,
-        report.Phone_Number,
+        report?._id,
+        report.fullName,
+        report.email,
+        report.role,
+        report.phone,
       ];
       tRow.push(reportData);
     });
